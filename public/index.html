@@ -93,10 +93,17 @@
   </div>
 
   <script>
-    function bestellen(product) {
-      alert("Je hebt '" + product + "' gekozen. Backend komt later!");
+    async function bestellen(product) {
+      await fetch("/bestelling", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product })
+      });
+
+      alert("Bestelling verstuurd!");
     }
   </script>
+
 
 </body>
 </html>
