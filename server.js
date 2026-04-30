@@ -5,26 +5,31 @@ const app = express();
 app.use(express.json());
 app.use(express.static("public"));
 
-// Email configuratie
+// Outlook / Hotmail configuratie
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: "hotmail",
   auth: {
-    user: "JOUWEMAIL@gmail.com",
-    pass: "JOUW-APP-PASSWORD"
+    user: "JOUW-OUTLOOK-EMAIL@outlook.com",
+    pass: "JOUW-OUTLOOK-WACHTWOORD"
   }
 });
 
 app.post("/bestelling", async (req, res) => {
   const { product } = req.body;
 
-  await transporter.sendMail({
-    from: "JOUWEMAIL@gmail.com",
-    to: "JOUWEMAIL@gmail.com",
-    subject: "Nieuwe bestelling",
-    text: `Er is een bestelling geplaatst voor: ${product}`
-  });
+  try {
+    await transporter.sendMail({
+      from: "JOUW-OUTLOOK-EMAIL@outlook.com",
+      to: "JOUW-OUTLOOK-EMAIL@outlook.com",
+      subject: "Nieuwe bestelling",
+      text: `Er is een bestelling geplaatst voor: ${product}`
+    });
 
-  res.json({ status: "ok" });
+    res.json({ status: "ok" });
+  } catch (err) {
+    console.error("Email fout:", err);
+    res.status(500).json({ status: "error" });
+  }
 });
 
 app.listen(process.env.PORT || 3000, () => {
