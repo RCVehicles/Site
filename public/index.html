@@ -1,7 +1,18 @@
-<html>
-  <head>
-  </head>
-  <body>
-    <h1>welcome!</h1>
-  </body>
-</html>
+<form id="orderForm">
+  <input name="product" value="mijn product">
+  <input name="email" placeholder="jouw email">
+  <button type="submit">Bestellen</button>
+</form>
+
+<script>
+document.getElementById("orderForm").onsubmit = async (e) => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(e.target));
+  const res = await fetch("https://jouw-backend-url.com/bestelling", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  alert("Bestelling verstuurd");
+};
+</script>
