@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   service: "hotmail",
   auth: {
     user: "rcvehicles@outlook.com",
-    pass: "f82ZT4EpwQ5XUrN"
+    pass: process.env.MAIL_PASS // veiliger
   }
 });
 
