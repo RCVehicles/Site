@@ -80,7 +80,7 @@
       <img src="https://via.placeholder.com/300x160?text=RC+Boot" alt="RC Boot">
       <h3>RC Boot</h3>
       <p>€40,00</p>
-      <button onclick="bestellen('RC Boot')">Bestsellen</button>
+      <button onclick="bestellen('RC Boot')">Bestellen</button>
     </div>
 
     <div class="product">
@@ -94,16 +94,24 @@
 
   <script>
     async function bestellen(product) {
-      await fetch("/bestelling", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ product })
-      });
+      try {
+        const res = await fetch("/bestelling", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ product })
+        });
 
-      alert("Bestelling verstuurd!");
+        if (!res.ok) {
+          alert("Er ging iets mis met de bestelling.");
+          return;
+        }
+
+        alert("Bestelling verstuurd voor: " + product);
+      } catch (e) {
+        alert("Kan de server niet bereiken.");
+      }
     }
   </script>
-
 
 </body>
 </html>
