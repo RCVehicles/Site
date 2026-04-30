@@ -9,8 +9,8 @@ app.use(express.static("public"));
 const transporter = nodemailer.createTransport({
   service: "hotmail",
   auth: {
-    user: "JOUW-OUTLOOK-EMAIL@outlook.com",
-    pass: "JOUW-OUTLOOK-WACHTWOORD"
+    user: "rcvehicles@outlook.com",
+    pass: "f82ZT4EpwQ5XUrN"
   }
 });
 
@@ -19,8 +19,8 @@ app.post("/bestelling", async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: "JOUW-OUTLOOK-EMAIL@outlook.com",
-      to: "JOUW-OUTLOOK-EMAIL@outlook.com",
+      from: "rcvehicles@outlook.com",
+      to: "david@deschoenmaten.nl",
       subject: "Nieuwe bestelling",
       text: `Er is een bestelling geplaatst voor: ${product}`
     });
